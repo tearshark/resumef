@@ -108,15 +108,23 @@ void HelloWorld::showMessageBox()
 {
 	GO
 	{
-		auto ok = co_await showMessage(u8"这是一条提示信息。\n点击'关闭'来关闭游戏");
-		if (ok == MsgButton::OK)
+		try
 		{
-			this->menuCloseCallback(nullptr);
+			auto ok = co_await showMessage(u8"这是一条提示信息。\n点击'关闭'来关闭游戏", { MsgButton::OKCancel, u8"关闭", nullptr, nullptr});
+			if (ok == MsgButton::OK)
+			{
+				this->menuCloseCallback(nullptr);
+			}
+			else
+			{
+				co_await showMessage(u8"您选择了留在游戏里。", {}, nullptr);
+				CCLOG("end message box");
+			}
 		}
-		else
+		catch (const std::exception & ex)
 		{
-			co_await showMessage(u8"您选择了留在游戏里。", {}, nullptr);
-			CCLOG("end message box");
+			ex;
+			CCLOG("had some error: %s", ex.what());
 		}
 	};
 }

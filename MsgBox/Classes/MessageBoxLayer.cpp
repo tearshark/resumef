@@ -17,7 +17,7 @@ MessageBoxLayer::~MessageBoxLayer()
 
 bool MessageBoxLayer::init(const char * msg, const MessageBoxCallback & cb, const MessageBoxConfig * cfg)
 {
-	if (!CommonTitleLayer::init("message_box/message_box.ExportJson", nullptr))
+	if (!CommonTitleLayer::init("message_box.json", nullptr))
 		return false;
 
 	SeekAllWidget(uiLayer, labelMessage, buttonOK, buttonCancel);

@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <UIProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ProjectDir>E:\resumef\cocos2dx\MsgBox</ProjectDir>
+  <ProjectDir>E:\resumef\MsgBox</ProjectDir>
   <Version>1.6.0.0</Version>
-  <Resources>E:\resumef\cocos2dx\MsgBox\Resources</Resources>
+  <Resources>E:\resumef\MsgBox\Resources</Resources>
   <Name>message_box</Name>
   <JsonFileName>message_box.json</JsonFileName>
-  <JsonFolder>E:\resumef\cocos2dx\MsgBox\Json</JsonFolder>
+  <JsonFolder>E:\resumef\MsgBox\Json</JsonFolder>
   <JsonList>
     <string>message_box.json</string>
   </JsonList>
@@ -13,15 +13,13 @@
     <Width>1280</Width>
     <Height>720</Height>
   </CanvasSize>
-  <filePath>E:\resumef\cocos2dx\MsgBox\message_box.xml.ui</filePath>
+  <filePath>E:\resumef\MsgBox\message_box.xml.ui</filePath>
   <ProjectType>UIProject</ProjectType>
   <ResRelativePath />
   <imageFileList>
     <string>message_box0.plist</string>
   </imageFileList>
-  <imagePngList>
-    <string>message_box0.png</string>
-  </imagePngList>
+  <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
   <CurrentUIJson>message_box.json</CurrentUIJson>
 </UIProject>
