@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{84D4F09A-B4BB-48A6-8586-B28F426E208A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>asio_server_callback</RootNamespace>
+    <RootNamespace>resumef</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
     <ProjectName>asio_chat_server</ProjectName>
   </PropertyGroup>

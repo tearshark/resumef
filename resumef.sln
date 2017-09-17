@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "asio_chat_server", "asio_chat_server\asio_chat_server.vcxproj", "{84D4F09A-B4BB-48A6-8586-B28F426E208A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "asio_chat_client2", "asio_chat_client\asio_chat_client.vcxproj", "{C250A825-209A-42A5-8FA1-EDB6E6DB3D3B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "asio_chat_client", "asio_chat_client\asio_chat_client.vcxproj", "{C250A825-209A-42A5-8FA1-EDB6E6DB3D3B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "with_multi_thread", "with_multi_thread\with_multi_thread.vcxproj", "{B9471E18-BB61-4C62-A9CB-2E59E952F77F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,14 @@ Global
 		{C250A825-209A-42A5-8FA1-EDB6E6DB3D3B}.Release|x64.Build.0 = Release|x64
 		{C250A825-209A-42A5-8FA1-EDB6E6DB3D3B}.Release|x86.ActiveCfg = Release|Win32
 		{C250A825-209A-42A5-8FA1-EDB6E6DB3D3B}.Release|x86.Build.0 = Release|Win32
+		{B9471E18-BB61-4C62-A9CB-2E59E952F77F}.Debug|x64.ActiveCfg = Debug|x64
+		{B9471E18-BB61-4C62-A9CB-2E59E952F77F}.Debug|x64.Build.0 = Debug|x64
+		{B9471E18-BB61-4C62-A9CB-2E59E952F77F}.Debug|x86.ActiveCfg = Debug|Win32
+		{B9471E18-BB61-4C62-A9CB-2E59E952F77F}.Debug|x86.Build.0 = Debug|Win32
+		{B9471E18-BB61-4C62-A9CB-2E59E952F77F}.Release|x64.ActiveCfg = Release|x64
+		{B9471E18-BB61-4C62-A9CB-2E59E952F77F}.Release|x64.Build.0 = Release|x64
+		{B9471E18-BB61-4C62-A9CB-2E59E952F77F}.Release|x86.ActiveCfg = Release|Win32
+		{B9471E18-BB61-4C62-A9CB-2E59E952F77F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

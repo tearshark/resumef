@@ -110,7 +110,7 @@ void HelloWorld::showMessageBox()
 	{
 		try
 		{
-			auto ok = co_await showMessage(u8"这是一条提示信息。\n点击'关闭'来关闭游戏", { MsgButton::OKCancel, u8"关闭", nullptr, nullptr});
+			auto ok = co_await showMessage(u8"这是一条提示信息。\n点击'确认'来关闭游戏");
 			if (ok == MsgButton::OK)
 			{
 				this->menuCloseCallback(nullptr);
