@@ -1,4 +1,4 @@
-// asioservercallback.cpp : Defines the entry point for the console application.
+﻿// asioservercallback.cpp : Defines the entry point for the console application.
 //
 
 #include "stdafx.h"
@@ -38,7 +38,7 @@ public:
 
 		std::copy(s, s + length, write_buff_.begin());
 		std::copy(read_buff_.begin(), read_buff_.begin() + size, write_buff_.begin() + length);
-		write_buff_[size + length + 1] = 0;
+		write_buff_[size + length] = 0;
 
 		return size + length + 1;
 	}
@@ -47,17 +47,20 @@ public:
 	{
 		do_read([this](size_t size)
 		{
+			std::cout << read_buff_.data() << std::endl;
 			do_write(prepare_write_msg("first logic result : ", size), [this]
 			{
 				do_read([this](size_t size)
 				{
+					std::cout << read_buff_.data() << std::endl;
 					do_write(prepare_write_msg("second logic result : ", size), [this]
 					{
 						do_read([this](size_t size)
 						{
+							std::cout << read_buff_.data() << std::endl;
 							do_write(prepare_write_msg("third logic result : ", size), [this]
 							{
-
+								//无限不循环......
 							});
 						});
 					});
@@ -78,6 +81,8 @@ private:
 			{
 				auto bufs = read_stream_.data();
 				std::copy(asio::buffers_begin(bufs), asio::buffers_end(bufs), read_buff_.begin());
+				read_stream_.consume(asio::buffer_size(bufs));
+
 				fn(asio::buffer_size(bufs));
 			}
 		});

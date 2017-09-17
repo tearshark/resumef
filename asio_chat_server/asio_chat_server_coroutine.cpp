@@ -1,4 +1,4 @@
-// asioservercallback.cpp : Defines the entry point for the console application.
+﻿// asioservercallback.cpp : Defines the entry point for the console application.
 //
 
 #include "stdafx.h"
@@ -11,6 +11,8 @@
 #include <iostream>
 
 #include "asio.hpp"
+#include "awaituv.h"
+#include "asio_use_task.hpp"
 #include "librf.h"
 
 using asio::ip::tcp;
@@ -39,64 +41,52 @@ public:
 
 		std::copy(s, s + length, write_buff_.begin());
 		std::copy(read_buff_.begin(), read_buff_.begin() + size, write_buff_.begin() + length);
-		write_buff_[size + length + 1] = 0;
+		write_buff_[size + length] = 0;
 
 		return size + length + 1;
 	}
 
-	void start()
+	awaituv::future_t<void> start()
 	{
-		do_read([this](size_t size)
+		auto self = this->shared_from_this();
+		try
 		{
-			do_write(prepare_write_msg("first logic result : ", size), [this]
-			{
-				do_read([this](size_t size)
-				{
-					do_write(prepare_write_msg("second logic result : ", size), [this]
-					{
-						do_read([this](size_t size)
-						{
-							do_write(prepare_write_msg("third logic result : ", size), [this]
-							{
+			auto size = co_await do_read();
+			std::cout << read_buff_.data() << std::endl;
+			co_await do_write(prepare_write_msg("first logic result : ", size));
 
-							});
-						});
-					});
-				});
-			});
-		});
+			size = co_await do_read();
+			std::cout << read_buff_.data() << std::endl;
+			co_await do_write(prepare_write_msg("second logic result : ", size));
+
+			size = co_await do_read();
+			std::cout << read_buff_.data() << std::endl;
+			co_await do_write(prepare_write_msg("third logic result : ", size));
+
+			//无限不循环......
+		}
+		catch (...)
+		{
+
+		}
 	}
 
 private:
-	template<class _Fx>
-	void do_read(_Fx && fn)
+	awaituv::future_t<size_t> do_read()
 	{
-		auto self(shared_from_this());
-		asio::async_read_until(socket_, read_stream_, 0,
-			[this, self, fn = std::forward<_Fx>(fn)](const asio::error_code& ec, std::size_t size)
-		{
-			if (!ec && size > 0)
-			{
-				auto bufs = read_stream_.data();
-				std::copy(asio::buffers_begin(bufs), asio::buffers_end(bufs), read_buff_.begin());
-				fn(asio::buffer_size(bufs));
-			}
-		});
+		auto size = co_await asio::async_read_until(socket_, read_stream_, 0, asio::use_task);
+		auto bufs = read_stream_.data();
+		std::copy(asio::buffers_begin(bufs), asio::buffers_end(bufs), read_buff_.begin());
+		read_stream_.consume(asio::buffer_size(bufs));
+
+		return asio::buffer_size(bufs);
 	}
 
-	template<class _Fx>
-	void do_write(size_t size, _Fx && fn)
+	awaituv::future_t<void> do_write(size_t size)
 	{
 		auto self(shared_from_this());
-		asio::async_write(socket_,
-			asio::buffer(write_buff_.data(), size),
-			[this, self, fn = std::forward<_Fx>(fn)](std::error_code ec, std::size_t)
-		{
-			if (!ec)
-			{
-				fn();
-			}
-		});
+		co_await asio::async_write(socket_,
+			asio::buffer(write_buff_.data(), size), asio::use_task);
 	}
 
 	tcp::socket socket_;
@@ -120,18 +110,20 @@ public:
 	}
 
 private:
-	void do_accept()
+	awaituv::future_t<void> do_accept()
 	{
-		acceptor_.async_accept(socket_,
-			[this](std::error_code ec)
+		try
 		{
-			if (!ec)
+			for (;;)
 			{
+				co_await acceptor_.async_accept(socket_, asio::use_task);
 				std::make_shared<chat_session>(std::move(socket_))->start();
 			}
+		}
+		catch (...)
+		{
 
-			do_accept();
-		});
+		}
 	}
 
 	tcp::acceptor acceptor_;

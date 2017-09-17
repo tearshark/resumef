@@ -27,6 +27,9 @@
     <ClInclude Include="asio_use_task.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="awaituv.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

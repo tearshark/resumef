@@ -1,4 +1,4 @@
-// asioservercallback.cpp : Defines the entry point for the console application.
+﻿// asioservercallback.cpp : Defines the entry point for the console application.
 //
 
 #include "stdafx.h"
@@ -9,6 +9,7 @@
 #include <utility>
 #include <algorithm>
 #include <iostream>
+#include <conio.h>
 
 #include "asio.hpp"
 
@@ -27,8 +28,9 @@ std::pair<iterator, bool> chat_match_zero(iterator begin, iterator end)
 class chat_session : public std::enable_shared_from_this<chat_session>
 {
 public:
-	chat_session(tcp::socket && socket)
-		: socket_(std::move(socket))
+	chat_session(asio::io_service & ios, tcp::resolver::iterator ep)
+		: socket_(ios)
+		, endpoint_(ep)
 	{
 	}
 
@@ -38,26 +40,33 @@ public:
 
 		std::copy(s, s + length, write_buff_.begin());
 		std::copy(read_buff_.begin(), read_buff_.begin() + size, write_buff_.begin() + length);
-		write_buff_[size + length + 1] = 0;
+		write_buff_[size + length] = 0;
 
 		return size + length + 1;
 	}
 
 	void start()
 	{
-		do_read([this](size_t size)
+		do_connect([this] 
 		{
-			do_write(prepare_write_msg("first logic result : ", size), [this]
+			do_write(prepare_write_msg("1 :", 0), [this]
 			{
 				do_read([this](size_t size)
 				{
-					do_write(prepare_write_msg("second logic result : ", size), [this]
+					std::cout << read_buff_.data() << std::endl;
+					do_write(prepare_write_msg("2 :", 0), [this]
 					{
 						do_read([this](size_t size)
 						{
-							do_write(prepare_write_msg("third logic result : ", size), [this]
+							std::cout << read_buff_.data() << std::endl;
+							do_write(prepare_write_msg("3 :", 0), [this]
 							{
+								do_read([this](size_t size)
+								{
+									std::cout << read_buff_.data() << std::endl;
 
+									//无限不循环......
+								});
 							});
 						});
 					});
@@ -67,6 +76,20 @@ public:
 	}
 
 private:
+	template<class _Fx>
+	void do_connect(_Fx && fn)
+	{
+		auto self = this->shared_from_this();
+		asio::async_connect(socket_, endpoint_,
+			[this, self, fn = std::forward<_Fx>(fn)](std::error_code ec, tcp::resolver::iterator iter)
+		{
+			if (!ec)
+			{
+				fn();
+			}
+		});
+	}
+
 	template<class _Fx>
 	void do_read(_Fx && fn)
 	{
@@ -78,6 +101,8 @@ private:
 			{
 				auto bufs = read_stream_.data();
 				std::copy(asio::buffers_begin(bufs), asio::buffers_end(bufs), read_buff_.begin());
+				read_stream_.consume(asio::buffer_size(bufs));
+
 				fn(asio::buffer_size(bufs));
 			}
 		});
@@ -99,42 +124,12 @@ private:
 	}
 
 	tcp::socket socket_;
+	tcp::resolver::iterator endpoint_;
 
 	asio::streambuf read_stream_;
 	std::array<char, 4096 * 16> read_buff_;
 
 	std::array<char, 4096 * 16> write_buff_;
-};
-
-//----------------------------------------------------------------------
-
-class chat_server
-{
-public:
-	chat_server(asio::io_service& ios, const tcp::endpoint& endpoint)
-		: acceptor_(ios, endpoint)
-		, socket_(ios)
-	{
-		do_accept();
-	}
-
-private:
-	void do_accept()
-	{
-		acceptor_.async_accept(socket_,
-			[this](std::error_code ec)
-		{
-			if (!ec)
-			{
-				std::make_shared<chat_session>(std::move(socket_))->start();
-			}
-
-			do_accept();
-		});
-	}
-
-	tcp::acceptor acceptor_;
-	tcp::socket socket_;
 };
 
 //----------------------------------------------------------------------
@@ -145,10 +140,16 @@ int main(int argc, char* argv[])
 	{
 		asio::io_service ios;
 
-		tcp::endpoint endpoint(tcp::v4(), 3456);
-		chat_server chat = { ios, endpoint };
+		asio::ip::tcp::resolver resolver_(ios);
+		asio::ip::tcp::resolver::query query_("127.0.0.1", "3456");
+		tcp::resolver::iterator iter = resolver_.resolve(query_);
+
+		auto chat = std::make_shared<chat_session>(ios, iter);
+		chat->start();
 
 		ios.run();
+
+		_getch();
 	}
 	catch (std::exception& e)
 	{
