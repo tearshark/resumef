@@ -1,3 +1,4 @@
+#pragma once
 
 #define MARCO_EXPAND(...) __VA_ARGS__
 #define MARCO_EXPAND_ALL(...) {__VA_ARGS__;}

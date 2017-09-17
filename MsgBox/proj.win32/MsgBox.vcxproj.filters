@@ -129,5 +129,8 @@
     <None Include="..\Classes\seek_widget_helper.inl">
       <Filter>src</Filter>
     </None>
+    <None Include="..\Classes\for_macro_args.inl">
+      <Filter>src</Filter>
+    </None>
   </ItemGroup>
 </Project>

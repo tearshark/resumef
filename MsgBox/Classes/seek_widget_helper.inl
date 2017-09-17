@@ -1,8 +1,6 @@
-#include "make_arg_list.inl"
-#include "get_arg_count.inl"
+#pragma once
 
-#define SEEK_WIDGET_BY_NAME(Layer, Obj) Obj = dynamic_cast<decltype(Obj)>(ui::Helper::seekWidgetByName((Layer), "@" #Obj));
-#define SEEK_ALL_WIDGET(Layer, N, ...) MARCO_EXPAND_ALL(MAKE_ARG_LIST(N, SEEK_WIDGET_BY_NAME, Layer, __VA_ARGS__)) 
+#include "for_macro_args.inl"
 
-
-#define SeekAllWidget(Layer, ...) SEEK_ALL_WIDGET(Layer, GET_ARG_COUNT(__VA_ARGS__), __VA_ARGS__)
+#define SEEK_WIDGET_BY_NAME(Layer, Variable) Variable = dynamic_cast<decltype(Variable)>(ui::Helper::seekWidgetByName((Layer), "@" #Variable));
+#define SeekAllWidget(Layer, ...) FOR_MACRO_ARGS(Layer, SEEK_WIDGET_BY_NAME, __VA_ARGS__)

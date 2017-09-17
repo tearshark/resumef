@@ -228,6 +228,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ResourceCompile Include="game.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Classes\for_macro_args.inl" />
     <None Include="..\Classes\get_arg_count.inl" />
     <None Include="..\Classes\make_arg_list.inl" />
     <None Include="..\Classes\seek_widget_helper.inl" />
