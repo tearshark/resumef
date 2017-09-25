@@ -57,8 +57,7 @@ namespace asio {
 		Allocator allocator_;
 	};
 
-	// constexpr use_task_t<> use_task;
-	// #elif defined(ASIO_MSVC)
+	//constexpr use_task_t<> use_task;
 #pragma warning(push)
 #pragma warning(disable : 4592)
 	__declspec(selectany) use_task_t<> use_task;
@@ -71,28 +70,29 @@ namespace asio {
 		class promise_handler {
 		public:
 			using result_type_t = T;
+			using state_type = awaituv::awaitable_state<result_type_t>;
 
 			// Construct from use_task special value.
 			template<typename Allocator>
 			promise_handler(use_task_t<Allocator> uf) {
-				task_ = std::allocate_shared<awaituv::promise_t<result_type_t>>(uf.get_allocator());
+				state_ = awaituv::make_counted<state_type>();
 			}
 
 			void operator()(T t) {
-				task_->return_value(std::move(t));
+				state_->set_value(std::move(t));
 			}
 
 			void operator()(const asio::error_code& ec, T t) {
 				if (ec) {
-					task_->set_exception(std::make_exception_ptr(asio::system_error(ec)));
+					state_->set_exception(std::make_exception_ptr(asio::system_error(ec)));
 				}
 				else {
-					task_->return_value(std::move(t));
+					state_->set_value(std::move(t));
 				}
 			}
 
 			// private:
-			awaituv::shared_promise_ptr<result_type_t> task_;
+			awaituv::counted_ptr<state_type> state_;
 		};
 
 		// Completion handler to adapt a void promise as a completion handler.
@@ -100,26 +100,29 @@ namespace asio {
 		class promise_handler<void> {
 		public:
 			using result_type_t = void;
+			using state_type = awaituv::awaitable_state<result_type_t>;
 
 			// Construct from use_task special value. Used during rebinding.
 			template<typename Allocator>
 			promise_handler(use_task_t<Allocator> uf) {
-				task_ = std::allocate_shared<awaituv::promise_t<result_type_t>>(uf.get_allocator());
+				state_ = awaituv::make_counted<state_type>();
 			}
 
-			void operator()() { task_->return_void(); }
+			void operator()() {
+				state_->set_value();
+			}
 
 			void operator()(const asio::error_code& ec) {
 				if (ec) {
-					task_->set_exception(std::make_exception_ptr(asio::system_error(ec)));
+					state_->set_exception(std::make_exception_ptr(asio::system_error(ec)));
 				}
 				else {
-					task_->return_void();
+					state_->set_value();
 				}
 			}
 
 			// private:
-			awaituv::shared_promise_ptr<result_type_t> task_;
+			awaituv::counted_ptr<state_type> state_;
 		};
 
 		// Handler traits specialisation for promise_handler.
@@ -132,7 +135,7 @@ namespace asio {
 			// Constructor creates a new promise for the async operation, and obtains the
 			// corresponding task.
 			explicit async_result(detail::promise_handler<T> & h)
-				: task_(std::move(h.task_->get_future()))
+				: task_(std::move(h.state_))
 			{ }
 
 			// Obtain the task to be returned from the initiating function.

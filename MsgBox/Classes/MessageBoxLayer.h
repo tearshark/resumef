@@ -91,17 +91,17 @@ MessageBoxLayer * showMessage_CB(const char * msg, const MessageBoxCallback & cb
 
 //----------------------------------------------------------------------------------------------------------------------
 
-resumef::future_t<MsgButton>
+resumef::awaitable_t<MsgButton>
 showMessage_(const char * msg, const MessageBoxConfig * cfg, cocos2d::Scene * pScene = nullptr);
 
 inline
-resumef::future_t<MsgButton>
+resumef::awaitable_t<MsgButton>
 showMessage(const char * msg)
 {
 	return showMessage_(msg, nullptr, nullptr);
 }
 inline
-resumef::future_t<MsgButton>
+resumef::awaitable_t<MsgButton>
 showMessage(const char * msg, const MessageBoxConfig & cfg, cocos2d::Scene * pScene = nullptr)
 {
 	return showMessage_(msg, &cfg, pScene);

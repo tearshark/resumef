@@ -120,16 +120,7 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Classes\get_arg_count.inl">
-      <Filter>src</Filter>
-    </None>
-    <None Include="..\Classes\make_arg_list.inl">
-      <Filter>src</Filter>
-    </None>
     <None Include="..\Classes\seek_widget_helper.inl">
-      <Filter>src</Filter>
-    </None>
-    <None Include="..\Classes\for_macro_args.inl">
       <Filter>src</Filter>
     </None>
   </ItemGroup>

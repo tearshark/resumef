@@ -121,12 +121,12 @@ MessageBoxLayer * showMessage_CB_(const char * msg, const MessageBoxCallback & c
 	}
 }
 
-resumef::future_t<MsgButton>
+resumef::awaitable_t<MsgButton>
 showMessage_(const char * msg, const MessageBoxConfig * cfg, cocos2d::Scene * pScene)
 {
-	resumef::promise_t<MsgButton> promise;
+	resumef::awaitable_t<MsgButton> awaitable;
 	
-	auto box = showMessage_CB_(msg, [st = promise._state](MsgButton ok)
+	auto box = showMessage_CB_(msg, [st = awaitable._state](MsgButton ok)
 	{
 		if (ok > MsgButton(0))
 		{
@@ -134,15 +134,15 @@ showMessage_(const char * msg, const MessageBoxConfig * cfg, cocos2d::Scene * pS
 		}
 		else
 		{
-			st->throw_with_nested(std::exception("showMessage:box destructed!", 0));
+			st->throw_exception(std::exception("showMessage:box destructed!", 0));
 		}
 	}, cfg, pScene);
 
 	if (box == nullptr)
 	{
-		promise._state->throw_with_nested(std::exception("showMessage:create box failed.", 0));
+		awaitable._state->throw_exception(std::exception("showMessage:create box failed.", 0));
 	}
 
-	return promise.get_future();
+	return awaitable;
 }
 

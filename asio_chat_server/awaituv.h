@@ -218,12 +218,12 @@ namespace awaituv
 			_unlock();
 		}
 
-		counted_awaitable_state<T>* operator->()
+		counted_awaitable_state<T>* operator->() const
 		{
 			return _p;
 		}
 
-		counted_awaitable_state<T>* get()
+		counted_awaitable_state<T>* get() const
 		{
 			return _p;
 		}
@@ -295,6 +295,7 @@ namespace awaituv
 			_state->set_coro(resume_cb);
 		}
 
+/*
 		bool ready()
 		{
 			return _state->_ready;
@@ -304,6 +305,7 @@ namespace awaituv
 		{
 			return _state->get_value();
 		}
+*/
 	};
 
 	template <typename T, typename state_t>
