@@ -13,7 +13,7 @@
 #include "asio.hpp"
 #include "awaituv.h"
 #include "asio_use_task.hpp"
-#include "librf.h"
+#include "librf/librf.h"
 
 using asio::ip::tcp;
 
@@ -82,10 +82,9 @@ private:
 		return asio::buffer_size(bufs);
 	}
 
-	awaituv::future_t<void> do_write(size_t size)
+	awaituv::future_t<size_t> do_write(size_t size)
 	{
-		auto self(shared_from_this());
-		co_await asio::async_write(socket_,
+		return asio::async_write(socket_,
 			asio::buffer(write_buff_.data(), size), asio::use_task);
 	}
 

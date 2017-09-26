@@ -13,6 +13,9 @@
     <Filter Include="librf">
       <UniqueIdentifier>{49f90a37-d917-4757-8e8c-0923c5662dae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="librf\src">
+      <UniqueIdentifier>{d2bc12ea-de35-4389-8a82-c35123960dfe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -33,23 +36,23 @@
     <ClCompile Include="..\Classes\CommonTitleLayer.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\librf\librf\event.cpp">
-      <Filter>librf</Filter>
+    <ClCompile Include="..\..\librf\librf\src\event.cpp">
+      <Filter>librf\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\librf\librf\mutex.cpp">
-      <Filter>librf</Filter>
+    <ClCompile Include="..\..\librf\librf\src\mutex.cpp">
+      <Filter>librf\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\librf\librf\rf_task.cpp">
-      <Filter>librf</Filter>
+    <ClCompile Include="..\..\librf\librf\src\rf_task.cpp">
+      <Filter>librf\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\librf\librf\scheduler.cpp">
-      <Filter>librf</Filter>
+    <ClCompile Include="..\..\librf\librf\src\scheduler.cpp">
+      <Filter>librf\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\librf\librf\sleep.cpp">
-      <Filter>librf</Filter>
+    <ClCompile Include="..\..\librf\librf\src\sleep.cpp">
+      <Filter>librf\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\librf\librf\timer.cpp">
-      <Filter>librf</Filter>
+    <ClCompile Include="..\..\librf\librf\src\timer.cpp">
+      <Filter>librf\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -68,50 +71,53 @@
     <ClInclude Include="..\Classes\CommonTitleLayer.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\librf\librf\_awaker.h">
+    <ClInclude Include="..\..\librf\librf\librf.h">
       <Filter>librf</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\librf\librf\awaituv.h">
-      <Filter>librf</Filter>
+    <ClInclude Include="..\..\librf\librf\src\_awaker.h">
+      <Filter>librf\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\librf\librf\channel.h">
-      <Filter>librf</Filter>
+    <ClInclude Include="..\..\librf\librf\src\asio_task.h">
+      <Filter>librf\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\librf\librf\def.h">
-      <Filter>librf</Filter>
+    <ClInclude Include="..\..\librf\librf\src\channel.h">
+      <Filter>librf\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\librf\librf\event.h">
-      <Filter>librf</Filter>
+    <ClInclude Include="..\..\librf\librf\src\def.h">
+      <Filter>librf\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\librf\librf\future.h">
-      <Filter>librf</Filter>
+    <ClInclude Include="..\..\librf\librf\src\event.h">
+      <Filter>librf\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\librf\librf\generator.h">
-      <Filter>librf</Filter>
+    <ClInclude Include="..\..\librf\librf\src\future.h">
+      <Filter>librf\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\librf\librf\mutex.h">
-      <Filter>librf</Filter>
+    <ClInclude Include="..\..\librf\librf\src\generator.h">
+      <Filter>librf\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\librf\librf\rf_task.h">
-      <Filter>librf</Filter>
+    <ClInclude Include="..\..\librf\librf\src\mutex.h">
+      <Filter>librf\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\librf\librf\scheduler.h">
-      <Filter>librf</Filter>
+    <ClInclude Include="..\..\librf\librf\src\rf_task.h">
+      <Filter>librf\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\librf\librf\sleep.h">
-      <Filter>librf</Filter>
+    <ClInclude Include="..\..\librf\librf\src\scheduler.h">
+      <Filter>librf\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\librf\librf\spinlock.h">
-      <Filter>librf</Filter>
+    <ClInclude Include="..\..\librf\librf\src\sleep.h">
+      <Filter>librf\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\librf\librf\state.h">
-      <Filter>librf</Filter>
+    <ClInclude Include="..\..\librf\librf\src\spinlock.h">
+      <Filter>librf\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\librf\librf\timer.h">
-      <Filter>librf</Filter>
+    <ClInclude Include="..\..\librf\librf\src\state.h">
+      <Filter>librf\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\librf\librf\utils.h">
-      <Filter>librf</Filter>
+    <ClInclude Include="..\..\librf\librf\src\timer.h">
+      <Filter>librf\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\librf\librf\src\utils.h">
+      <Filter>librf\src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

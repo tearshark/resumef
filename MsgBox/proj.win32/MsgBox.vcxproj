@@ -156,27 +156,27 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\librf\librf\event.cpp">
+    <ClCompile Include="..\..\librf\librf\src\event.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\librf\librf\mutex.cpp">
+    <ClCompile Include="..\..\librf\librf\src\mutex.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\librf\librf\rf_task.cpp">
+    <ClCompile Include="..\..\librf\librf\src\rf_task.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\librf\librf\scheduler.cpp">
+    <ClCompile Include="..\..\librf\librf\src\scheduler.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\librf\librf\sleep.cpp">
+    <ClCompile Include="..\..\librf\librf\src\sleep.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\librf\librf\timer.cpp">
+    <ClCompile Include="..\..\librf\librf\src\timer.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -191,21 +191,22 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\librf\librf\awaituv.h" />
-    <ClInclude Include="..\..\librf\librf\channel.h" />
-    <ClInclude Include="..\..\librf\librf\def.h" />
-    <ClInclude Include="..\..\librf\librf\event.h" />
-    <ClInclude Include="..\..\librf\librf\future.h" />
-    <ClInclude Include="..\..\librf\librf\generator.h" />
-    <ClInclude Include="..\..\librf\librf\mutex.h" />
-    <ClInclude Include="..\..\librf\librf\rf_task.h" />
-    <ClInclude Include="..\..\librf\librf\scheduler.h" />
-    <ClInclude Include="..\..\librf\librf\sleep.h" />
-    <ClInclude Include="..\..\librf\librf\spinlock.h" />
-    <ClInclude Include="..\..\librf\librf\state.h" />
-    <ClInclude Include="..\..\librf\librf\timer.h" />
-    <ClInclude Include="..\..\librf\librf\utils.h" />
-    <ClInclude Include="..\..\librf\librf\_awaker.h" />
+    <ClInclude Include="..\..\librf\librf\librf.h" />
+    <ClInclude Include="..\..\librf\librf\src\asio_task.h" />
+    <ClInclude Include="..\..\librf\librf\src\channel.h" />
+    <ClInclude Include="..\..\librf\librf\src\def.h" />
+    <ClInclude Include="..\..\librf\librf\src\event.h" />
+    <ClInclude Include="..\..\librf\librf\src\future.h" />
+    <ClInclude Include="..\..\librf\librf\src\generator.h" />
+    <ClInclude Include="..\..\librf\librf\src\mutex.h" />
+    <ClInclude Include="..\..\librf\librf\src\rf_task.h" />
+    <ClInclude Include="..\..\librf\librf\src\scheduler.h" />
+    <ClInclude Include="..\..\librf\librf\src\sleep.h" />
+    <ClInclude Include="..\..\librf\librf\src\spinlock.h" />
+    <ClInclude Include="..\..\librf\librf\src\state.h" />
+    <ClInclude Include="..\..\librf\librf\src\timer.h" />
+    <ClInclude Include="..\..\librf\librf\src\utils.h" />
+    <ClInclude Include="..\..\librf\librf\src\_awaker.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\CommonTitleLayer.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
